@@ -1,6 +1,7 @@
 const AssistantV2 = require('ibm-watson/assistant/v2');
 const { IamAuthenticator } = require('ibm-watson/auth');
-
+const mongoose = require('../config/db');
+const ObjectId = require('mongoose').Types.ObjectId;
 const User = require('../models/User');
 
 
@@ -22,6 +23,19 @@ async function newUser(req,res) {
     }
 }
 
+async function getSaldo(req,res) {
+    const user = req.params.id
+    try {
+        const conn = await mongoose.connection
+        const saldo = await conn.collection('users').findOne({_id: new ObjectId(user)})
+        console.log(saldo.saldo)
+        return res.status(200).send({
+            saldo: saldo.saldo
+        })
+    }catch(err) {
+        console.log(`Erro ao pegar saldo:::: ${err}`)
+    }
+}
 
 async function conversationBot(req,res) {
     const assistant = new AssistantV2({
@@ -56,5 +70,6 @@ async function conversationBot(req,res) {
 
 module.exports = {
     newUser,
-    conversationBot
+    conversationBot,
+    getSaldo
 }
