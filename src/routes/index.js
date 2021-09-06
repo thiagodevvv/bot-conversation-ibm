@@ -3,12 +3,12 @@ const router = require('express').Router();
 const {
     newUser,
     conversationBot,
-    getSaldo
+    getDataUser
 } = require('../services/');
 
 router.post('/new', newUser);
 router.post('/', conversationBot);
-router.get('/saldo/:id', getSaldo);
+router.get('/user', getDataUser);
 
 
 

@@ -23,14 +23,13 @@ async function newUser(req,res) {
     }
 }
 
-async function getSaldo(req,res) {
-    const user = req.params.id
+async function getDataUser(req,res) {
+    const user = req.body.id
     try {
         const conn = await mongoose.connection
-        const saldo = await conn.collection('users').findOne({_id: new ObjectId(user)})
-        console.log(saldo.saldo)
+        const data = await conn.collection('users').findOne({_id: new ObjectId(user)})
         return res.status(200).send({
-            saldo: saldo.saldo
+            data: data
         })
     }catch(err) {
         console.log(`Erro ao pegar saldo:::: ${err}`)
@@ -71,5 +70,5 @@ async function conversationBot(req,res) {
 module.exports = {
     newUser,
     conversationBot,
-    getSaldo
+    getDataUser
 }
