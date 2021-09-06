@@ -8,7 +8,7 @@ const {
 
 router.post('/new', newUser);
 router.post('/', conversationBot);
-router.get('/user', getDataUser);
+router.post('/user', getDataUser);
 
 
 
