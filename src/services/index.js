@@ -6,14 +6,19 @@ const User = require('../models/User');
 
 
 async function newUser(req,res) {
+    const saldo = req.body.saldo
+    const limiteEmpres = req.body.limite_emprestimo
+    const fatura = 120542
+    const moedaBRL = saldo.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})
+    const EmprestimoMoedaBBRL = limiteEmpres.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})
 
     const newUser = {
         nome: req.body.nome,
-        saldo: req.body.saldo,
-        limite_emprestimo: req.body.limite_emprestimo,
+        saldo: moedaBRL,
+        limite_emprestimo: EmprestimoMoedaBBRL,
         extrato: [],
         emprestimo_abertos: {},
-        fatura_atual: 0
+        fatura_atual: fatura.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})
     }
     try {
         const data = await User.create(newUser);

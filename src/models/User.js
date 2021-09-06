@@ -10,11 +10,11 @@ const UserSchema = new mongoose.Schema({
         
     },
     saldo: {
-        type: Number,
+        type: String,
         required: true
     },
     limite_emprestimo: {
-        type: Number,
+        type: String,
         required: true
     },
     extrato: {
@@ -26,7 +26,7 @@ const UserSchema = new mongoose.Schema({
         required: true
     },
     fatura_atual: {
-        type: Number,
+        type: String,
         required: true
     }
 }, {timestamps: true})
