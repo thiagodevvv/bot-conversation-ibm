@@ -42,6 +42,7 @@ async function getDataUser(req,res) {
 }
 
 async function conversationBot(req,res) {
+
     const assistant = new AssistantV2({
         version: '2021-06-14',
         authenticator: new IamAuthenticator({
@@ -57,10 +58,18 @@ async function conversationBot(req,res) {
           assistant.message({
               assistantId: process.env.ASSISTANT_ID,
               sessionId: data.result.session_id,
-            //   input: {
-            //       'message_type': 'text',
-            //       'text': `${req.body.text}`
-            //   }
+              input: {
+                  'message_type': 'text',
+                  'text': `${req.body.text}`,
+              },
+              context: {
+                  global: {
+                      system: {
+                        turn_count: 1,
+                        user_id: `${req.body.id}`
+                      }
+                  }
+              }
           }).then((data) =>  {
               return res.send(data.result);
           }).catch(err => {
